@@ -1,8 +1,10 @@
-package domain;
+package com.learn.spring6.domain.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -21,6 +23,19 @@ public class Author {
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author author)) return false;
+        return Objects.equals(id, author.id);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 
 }
