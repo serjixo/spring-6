@@ -2,8 +2,10 @@ package com.learn.spring6.bootstrap;
 
 import com.learn.spring6.data.AuthorRepositoryImpl;
 import com.learn.spring6.data.BookRepositoryImpl;
+import com.learn.spring6.data.PublisherRepositoryImpl;
 import com.learn.spring6.domain.models.Author;
 import com.learn.spring6.domain.models.Book;
+import com.learn.spring6.domain.models.Publisher;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +13,15 @@ import org.springframework.stereotype.Component;
 public class BootstrapData implements CommandLineRunner {
 
     private final BookRepositoryImpl bookRepository;
+
     private final AuthorRepositoryImpl authorRepository;
 
-    public BootstrapData(BookRepositoryImpl bookRepository, AuthorRepositoryImpl authorRepository) {
+    private final PublisherRepositoryImpl publisherRepository;
+
+    public BootstrapData(BookRepositoryImpl bookRepository, AuthorRepositoryImpl authorRepository, PublisherRepositoryImpl publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -25,6 +31,12 @@ public class BootstrapData implements CommandLineRunner {
 
         Author author = new Author();
         author.setFirstName("John");
+
+        Publisher publisher = new Publisher();
+        publisher.setName("Publisher Name");
+
+        Publisher savedPublisher = publisherRepository.save(publisher);
+        book.setPublisher(savedPublisher);
 
         Author savedAuthor = authorRepository.save(author);
         Book savedBook = bookRepository.save(book);
@@ -38,8 +50,10 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("____________________________________");
         System.out.println(authorRepository.count());
         System.out.println(bookRepository.count());
+        System.out.println(savedBook.getPublisher().getName());
 
 
     }
 
 }
+

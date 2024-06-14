@@ -14,10 +14,16 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     private String title;
+
     private String ISBN;
+
     @ManyToMany(mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
+
+    @ManyToOne()
+    private Publisher publisher;
 
     @Override
     public boolean equals(Object o) {
@@ -30,5 +36,6 @@ public class Book {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
 
 }
