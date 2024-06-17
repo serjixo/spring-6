@@ -1,5 +1,6 @@
 package com.learn.spring6.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,6 +24,7 @@ public class Book {
     private Set<Author> authors = new HashSet<>();
 
     @ManyToOne()
+    @JsonIgnore()
     private Publisher publisher;
 
     @Override
@@ -36,6 +38,5 @@ public class Book {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
 
 }

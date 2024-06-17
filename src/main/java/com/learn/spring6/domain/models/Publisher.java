@@ -1,5 +1,6 @@
 package com.learn.spring6.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class Publisher {
     private String city;
 
     @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
     private Set<Book> books = new HashSet<>();
 
 }
